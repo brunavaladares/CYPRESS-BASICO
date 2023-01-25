@@ -13,6 +13,8 @@ describe('Central de Antendimento ao Cliente TAT', function() {
     it('preenche os campos obrigatórios e envia o formulário', function() {
         const longText = 'Meu nome é Bruna. sou Analista de Testes trabalho na empresa matera, e adoro trabalhar na área de testes e qualidade de software'
 
+        cy.clock()
+
         cy.get('#firstName').type('Bruna')
         cy.get('#lastName').type('Valadares')
         cy.get('#email').type('brunavaladares@gmail.com')
@@ -20,6 +22,10 @@ describe('Central de Antendimento ao Cliente TAT', function() {
         cy.contains('button', 'Enviar').click()
 
         cy.get('.success').should('be.visible')
+
+        cy.tick(3000)
+
+        cy.get('.success').should('not.be.visible')
     })
 
     it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
